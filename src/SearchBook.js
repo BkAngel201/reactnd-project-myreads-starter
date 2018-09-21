@@ -15,11 +15,19 @@ class SearchBook extends Component {
                 } else {
                     this.setState({ books: response.items })
                 }
-                    console.log(response);
             })
         } else {
             this.setState({ books: [] })
         }
+
+    }
+
+    bookShelf = (searchedBookObject, actualBooked) => {
+        let value = actualBooked.find((book) => (
+            book.id === searchedBookObject.id
+        ))
+        return ( value !== undefined ? value.shelf : "none"
+    )
 
     }
 
@@ -41,6 +49,7 @@ class SearchBook extends Component {
 
                 </div>
               </div>
+
               <div className="search-books-results">
                 <ol className="books-grid">
                 {(this.state.books.length === 0)
@@ -53,7 +62,7 @@ class SearchBook extends Component {
 
                                     <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: (book.imageLinks) ? "url('" + book.imageLinks.thumbnail + "')" : "url('images/no-thumbnail.png')"  }}></div>
                                     <div className="book-shelf-changer">
-                                        <select>
+                                        <select value={this.bookShelf(book, this.props.actualBooksObject)} onChange={(e) => (this.props.changeBookShelfFunction(book, e.target.value))}>
                                             <option value="move" disabled>Move to...</option>
                                             <option value="currentlyReading">Currently Reading</option>
                                             <option value="wantToRead">Want to Read</option>
@@ -64,7 +73,7 @@ class SearchBook extends Component {
                                 </div>
                                 <div className="book-title">{book.title}</div>
                                 {book.authors && (book.authors.map((author) => (
-                                    <div className="book-authors">{author}</div>
+                                    <div key={author} className="book-authors">{author}</div>
                                 )))}
                             </div>
                         </li>
