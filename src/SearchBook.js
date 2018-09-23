@@ -60,7 +60,7 @@ class SearchBook extends Component {
                             <div className="book">
                                 <div className="book-top">
 
-                                    <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: (book.imageLinks) ? "url('" + book.imageLinks.thumbnail + "')" : "url('images/no-thumbnail.png')"  }}></div>
+                                    <div onClick={() => (this.props.onClick(book))} className="book-cover" style={{ width: 128, height: 193, backgroundImage: (book.imageLinks) ? "url('" + book.imageLinks.thumbnail + "')" : "url('images/no-thumbnail.png')"  }}></div>
                                     <div className="book-shelf-changer">
                                         <select value={this.bookShelf(book, this.props.actualBooksObject)} onChange={(e) => (this.props.changeBookShelfFunction(book, e.target.value))}>
                                             <option value="move" disabled>Move to...</option>

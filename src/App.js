@@ -4,6 +4,7 @@ import './App.css'
 import * as BooksAPI from './BooksAPI'
 import BookList from './BookList'
 import AnnounceGlobe from './AnnounceGlobe'
+import BookDetail from './BookDetail'
 
 import SearchBook from './SearchBook'
 
@@ -11,7 +12,11 @@ import SearchBook from './SearchBook'
 class BooksApp extends React.Component {
       state = {
           books: [],
-          announceGlobeShow: false
+          announceGlobeShow: false,
+          bookDetail: {
+              bookDetailShow: false,
+              bookDetailObject: {}
+          }
       }
 
       updateBooks = () => {
@@ -41,15 +46,30 @@ class BooksApp extends React.Component {
           ), 4000)
       }
 
+      showBookDetail = (bookObject) => {
+          this.setState({bookDetail: {
+              bookDetailShow: true,
+              bookDetailObject: bookObject
+          }})
+      }
+
+      closeBookDetail = () => {
+          this.setState({bookDetail: {
+              bookDetailShow: false,
+              bookDetailObject: {}
+          }})
+      }
+
       render() {
           return (
               <div className="app">
+                  {this.state.bookDetail.bookDetailShow && (<BookDetail bookDetailObject={this.state.bookDetail.bookDetailObject} closeBookDetail={this.closeBookDetail}/>)}
                   {this.state.announceGlobeShow && (<AnnounceGlobe message="Book Moved Succesfully!"/>)}
                   <Route exact path="/" render={() => (
-                          <BookList booksObject={this.state.books} changeBookShelfFunction={this.changeBookShelf} />
+                          <BookList booksObject={this.state.books} changeBookShelfFunction={this.changeBookShelf} onClick={this.showBookDetail}/>
                   )}/>
                   <Route exact path="/search" render={() => (
-                          <SearchBook actualBooksObject={this.state.books} changeBookShelfFunction={this.changeBookShelf}/>
+                          <SearchBook actualBooksObject={this.state.books} changeBookShelfFunction={this.changeBookShelf} onClick={this.showBookDetail}/>
                   )}/>
               </div>
           )
