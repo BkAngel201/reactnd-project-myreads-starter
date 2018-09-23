@@ -35,6 +35,7 @@ class SearchBook extends Component {
         return (
             <div className="search-books">
               <div className="search-books-bar">
+                // this return the user to the home page url
                 <Link to="/" className="close-search">Close</Link>
                 <div className="search-books-input-wrapper">
                   {/*
@@ -45,6 +46,7 @@ class SearchBook extends Component {
                     However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                     you don't find a specific author or title. Every search is limited by search terms.
                   */}
+                  // on every key pressed it will update the output of the list of books
                   <input type="text" placeholder="Search by title or author" onChange={(e) => (this.updateQuery(e.target.value))}/>
 
                 </div>
@@ -53,13 +55,14 @@ class SearchBook extends Component {
               <div className="search-books-results">
                 <ol className="books-grid">
                 {(this.state.books.length === 0)
+                    // show a text if there is no list of book to show
                     ? ( <p>No Results to Show</p> )
 
                     : ( this.state.books.map((book, index) => (
                         <li key={index}>
                             <div className="book">
                                 <div className="book-top">
-
+                                    // show all the info from the actual book object
                                     <div onClick={() => (this.props.onClick(book))} className="book-cover" style={{ width: 128, height: 193, backgroundImage: (book.imageLinks) ? "url('" + book.imageLinks.thumbnail + "')" : "url('images/no-thumbnail.png')"  }}></div>
                                     <div className="book-shelf-changer">
                                         <select value={this.bookShelf(book, this.props.actualBooksObject)} onChange={(e) => (this.props.changeBookShelfFunction(book, e.target.value))}>
