@@ -73,10 +73,10 @@ class BooksApp extends React.Component {
       render() {
           return (
               <div className="app">
-                  // if this variables are false it will not be show
+                  {/* if this variables are false it will not be show */}
                   {this.state.bookDetail.bookDetailShow && (<BookDetail bookDetailObject={this.state.bookDetail.bookDetailObject} closeBookDetail={this.closeBookDetail}/>)}
                   {this.state.announceGlobeShow && (<AnnounceGlobe message="Book Moved Succesfully!"/>)}
-                  // route will show the specific component depending on url "/" or "/search"
+                  {/* route will show the specific component depending on url "/" or "/search" */}
                   <Route exact path="/" render={() => (
                           <BookList booksObject={this.state.books} changeBookShelfFunction={this.changeBookShelf} onClick={this.showBookDetail}/>
                   )}/>
